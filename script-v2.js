@@ -1004,8 +1004,8 @@ document.addEventListener('DOMContentLoaded', () => {
             body: '“Yazgımızın en güzel anında birleşen asil ruhun, gök kubbenin altında karşılaştığım en büyük mucizedir bir tanem. En güzel mısralar bile, o dünyayı aydınlatan kıvrak zekân ile kalbime huzur veren zarafetini tasvir etmeye yetmez. Hüseyinsu’nun hayattaki yegâne ve ebedi ilhamı sensin.”'
         },
         '1': {
-            title: 'Gözümün Nuru & Ebedi Sadakat Yıldızı ✦',
-            body: '“İyi ki doğdun bir tanem, ömrüme ömür katan o güzel gülüşünle hayatımın en büyük hediyesisin. Sana olan sadakatim, gökyüzündeki bu yıldızlar gibi ebedi ve sarsılmazdır. Hüseyinsu’nun kalbi ömür boyu senin o eşsiz sevgine, zarafetine ve asaletine mühürlenmiştir.”'
+            title: 'Gözümün Nuru & Ruhunun Zarafeti ✦',
+            body: '“İyi ki doğdun bir tanem, ömrüme ömür katan o güzel tebessümün ve içimi ısıtan zarif varlığınla hayatımın en büyük hediyesisin. Seninle geçen her an, ruhuma huzur veren tatlı bir şiir gibidir. Hüseyinsu’nun kalbi ömür boyu senin o eşsiz sevgine, zarafetine ve asaletine mühürlenmiştir.”'
         },
         '2': {
             title: 'Canımın İçi & Tebessüm Yıldızı ✦',
@@ -1033,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generates 4 gentle floating stars inside the canvas bounds safely (highly detailed literary motifs)
         canvasStarsList = [
             { id: 0, label: 'VUSLAT', x: 50, y: starsCanvas.height * 0.35, vx: 0.15, vy: -0.2, size: 14, text: 'Güzel Kavuşma' },
-            { id: 1, label: 'SADAKAT', x: starsCanvas.width - 70, y: starsCanvas.height * 0.4, vx: -0.12, vy: -0.18, size: 14, text: 'Sarsılmaz Bağ' },
+            { id: 1, label: 'ZARAFET', x: starsCanvas.width - 70, y: starsCanvas.height * 0.4, vx: -0.12, vy: -0.18, size: 14, text: 'Zarif Ruhun' },
             { id: 2, label: 'TILSIM', x: 90, y: starsCanvas.height * 0.7, vx: 0.14, vy: -0.15, size: 14, text: 'Ortak Yazgı' },
             { id: 3, label: 'ÖMRÜM', x: starsCanvas.width - 100, y: starsCanvas.height * 0.75, vx: -0.1, vy: -0.22, size: 14, text: 'Ebedi Bahar' }
         ];
