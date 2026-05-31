@@ -1,0 +1,1055 @@
+/* ==========================================================================
+   CSS DESIGN SYSTEM: "Nisasu & Hüseyinsu - İkizler'in Kozmik Geçidi"
+   Aesthetics: Premium Dark Space, Concentric Gold Accents, Tabbed Navigation.
+   ========================================================================== */
+
+:root {
+    --bg-dark: #070919;
+    --bg-card: rgba(18, 22, 49, 0.6);
+    --gold: #ffd700;
+    --gold-gradient: linear-gradient(135deg, #ffd700, #ffa500);
+    --pink: #ff2d7a;
+    --purple: #8a2be2;
+    --text-light: #f5f6fa;
+    --text-muted: #8c96a8;
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --font-script: 'Caveat', cursive;
+}
+
+/* Reset & Scrollbar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-body);
+    color: var(--text-light);
+    height: 100vh;
+    overflow: hidden; /* Avoid main body scroll completely for a native app feel! */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ambient Canvas Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* App Container framing */
+.app-container {
+    width: 100%;
+    max-width: 460px;
+    height: 100vh;
+    padding: 20px 20px 90px 20px; /* bottom padding to account for nav bar */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hide & Transition Helper classes */
+.hidden {
+    display: none !important;
+}
+
+.disabled {
+    opacity: 0.3;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+/* Beautiful Interactive Buttons */
+.cosmic-btn {
+    background: var(--gold-gradient);
+    border: none;
+    border-radius: 30px;
+    color: #070919;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 12px 26px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
+}
+
+.cosmic-btn:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.55);
+}
+
+.cosmic-btn:active:not(.disabled) {
+    transform: translateY(0);
+}
+
+/* Music Control Floating Button */
+#music-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#music-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(8px);
+    color: var(--gold);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.music-wave-bar {
+    width: 2px;
+    height: 10px;
+    background-color: var(--gold);
+    display: inline-block;
+    margin: 0 1px;
+    position: absolute;
+    bottom: 10px;
+    opacity: 0;
+}
+
+#music-toggle.playing .music-wave-bar {
+    opacity: 0.8;
+    animation: bounceWave 0.8s ease-in-out infinite alternate;
+}
+
+#music-toggle.playing i { display: none; }
+#music-toggle.playing .bar-1 { left: 14px; animation-delay: 0.1s; }
+#music-toggle.playing .bar-2 { left: 18px; animation-delay: 0.3s; }
+#music-toggle.playing .bar-3 { left: 22px; animation-delay: 0.5s; }
+
+/* ==========================================================================
+   GATE SCREENS: FLOW TRANSITIONS (BULLETPROOF HIDING)
+   ========================================================================== */
+
+.gate-screen {
+    width: 100%;
+    display: none !important; /* STRICTLY HIDE EVERYTHING BY DEFAULT */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gate-screen.active-gate {
+    display: flex !important; /* STRICTLY RENDER ONLY ACTIVE SCREEN */
+    animation: fadeInScale 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.gate-screen.hidden-gate {
+    display: none !important;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Elegant Glassmorphic Card Container */
+.glass-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 24px;
+    backdrop-filter: blur(16px) saturate(130%);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-height: 78vh; /* keep height bounded so bottom bar isn't overlapped */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
+}
+
+/* Scrollbar inside glass card */
+.glass-card::-webkit-scrollbar {
+    width: 4px;
+}
+.glass-card::-webkit-scrollbar-track {
+    background: transparent;
+}
+.glass-card::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.25);
+    border-radius: 10px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.card-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: var(--text-light);
+    letter-spacing: 1px;
+}
+
+.card-desc {
+    font-size: 0.8rem;
+    color: #a0aab8;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.gate-navigation {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   GATE 1: THE COSMIC LOCK SCREEN
+   ========================================================================== */
+
+.lock-wrapper-container {
+    width: 100%;
+    text-align: center;
+    padding: 25px 20px;
+    border-radius: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.cosmic-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+}
+
+.gold-glow {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+.gold-text {
+    color: var(--gold);
+}
+
+.gate-subtitle {
+    font-size: 0.82rem;
+    color: #a0aab8;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+/* Astrological Astrolabe Dial Clock */
+.astrolabe-clock {
+    position: relative;
+    width: 210px;
+    height: 210px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(14, 18, 48, 0.9) 0%, rgba(6, 8, 24, 0.98) 100%);
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.2), inset 0 0 15px rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: none;
+}
+
+/* Concentric Gold Rings */
+.astrolabe-clock::before {
+    content: '';
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 215, 0, 0.25);
+    pointer-events: none;
+}
+.astrolabe-clock::after {
+    content: '';
+    position: absolute;
+    top: 40px; left: 40px; right: 40px; bottom: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 215, 0, 0.08);
+    pointer-events: none;
+}
+
+.constellation-bg {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M20 30 L50 25 L80 30 M50 25 L50 75 M30 50 L70 50' stroke='rgba%28255,215,0,0.15%29' stroke-width='0.5'/%3E%3Ccircle cx='20' cy='30' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3Ccircle cx='50' cy='25' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3Ccircle cx='80' cy='30' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3Ccircle cx='50' cy='75' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3Ccircle cx='30' cy='50' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3Ccircle cx='70' cy='50' r='1' fill='rgba%28255,215,0,0.4%29'/%3E%3C/svg%3E");
+    background-size: cover;
+    opacity: 0.4;
+    animation: rotateSlow 50s linear infinite;
+}
+
+.clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.clock-numbers .num {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: rgba(255, 215, 0, 0.7);
+    user-select: none;
+}
+
+.n12 { top: 12px; left: 50%; transform: translateX(-50%); }
+.n3  { right: 15px; top: 50%; transform: translateY(-50%); }
+.n6  { bottom: 12px; left: 50%; transform: translateX(-50%); }
+.n9  { left: 15px; top: 50%; transform: translateY(-50%); }
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+#hour-hand {
+    width: 4px;
+    height: 50px;
+    background: var(--gold-gradient);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    z-index: 3;
+}
+
+#hour-hand::after {
+    content: '✦';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 0.65rem;
+}
+
+#minute-hand {
+    width: 2px;
+    height: 68px;
+    background: linear-gradient(to top, var(--pink), var(--purple));
+    box-shadow: 0 0 8px rgba(255, 45, 122, 0.5);
+    z-index: 2;
+}
+
+.center-star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #070919;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+    font-size: 0.7rem;
+    z-index: 4;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.clock-status {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+#time-display {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+#lock-hint {
+    font-size: 0.7rem;
+    color: #8c96a8;
+    line-height: 1.4;
+    max-width: 320px;
+}
+
+.hint-pulse {
+    animation: textPulse 2s ease-in-out infinite alternate;
+}
+
+/* ==========================================================================
+   GATE 2: COSMIC COMPATIBILITY
+   ========================================================================== */
+
+.constellation-display {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.zodiac-constellation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 90px;
+}
+
+.zodiac-constellation svg {
+    width: 58px;
+    height: 58px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.12));
+}
+
+.zodiac-constellation span {
+    font-size: 0.65rem;
+    color: #a0aab8;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.svg-glow circle {
+    animation: starFlicker 2s ease-in-out infinite alternate;
+}
+
+.compatibility-heart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.compatibility-heart i {
+    color: var(--pink);
+    font-size: 1.8rem;
+    filter: drop-shadow(0 0 8px rgba(255, 45, 122, 0.35));
+}
+
+.compatibility-heart .percent {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--pink);
+}
+
+.compatibility-text {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: justify;
+    padding: 0 2px;
+}
+
+/* ==========================================================================
+   GATE 3: COMPLIMENT STARS
+   ========================================================================== */
+
+.interactive-constellation-map {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin: 10px 0;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border-glass);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.constellation-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.glowing-star {
+    position: absolute;
+    z-index: 5;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: none;
+}
+
+.star-icon {
+    font-size: 1.6rem;
+    color: #fff;
+    text-shadow: 0 0 8px var(--gold);
+    animation: starPulse 1.5s infinite ease-in-out alternate;
+    transition: all 0.3s ease;
+}
+
+.glowing-star:hover .star-icon {
+    transform: scale(1.25);
+    color: var(--gold);
+    text-shadow: 0 0 18px var(--gold);
+}
+
+.glowing-star.explored .star-icon {
+    color: var(--gold);
+    text-shadow: 0 0 15px var(--gold);
+    animation: none;
+}
+
+.star-label {
+    font-size: 0.6rem;
+    color: rgba(255, 215, 0, 0.7);
+    margin-top: 2px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+/* Positional mapping of 4 Compliment Stars */
+.star-btn-1 { top: 22%; left: 20%; }
+.star-btn-2 { top: 22%; right: 20%; }
+.star-btn-3 { bottom: 22%; left: 30%; }
+.star-btn-4 { bottom: 22%; right: 30%; }
+
+/* Glass Compliment Popups (FIXED VISIBILITY) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 9, 25, 0.8);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden; /* transition visibility to fix rendering bug! */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+    visibility: visible;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: var(--gold);
+}
+
+.modal-star-icon {
+    font-size: 2.2rem;
+    color: var(--gold);
+    text-shadow: 0 0 15px var(--gold);
+    margin-bottom: 12px;
+}
+
+#modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--text-light);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+#modal-body {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================================================
+   GATE 4: ASTROLOGY SCRATCH CARD
+   ========================================================================== */
+
+.scratch-container {
+    position: relative;
+    width: 290px;
+    height: 190px;
+    margin: 12px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--border-glass);
+    flex-shrink: 0;
+}
+
+.scratch-reward {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #2b1842 0%, #100b21 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coupon-border {
+    width: 90%;
+    height: 90%;
+    border: 2px dashed rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coupon-inside {
+    text-align: center;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.coupon-sparkle {
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+}
+
+.coupon-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+.coupon-text {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pink);
+    text-transform: uppercase;
+}
+
+.coupon-details {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.35;
+    max-width: 220px;
+}
+
+.coupon-code {
+    font-size: 0.5rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-family: monospace;
+    margin-top: 3px;
+}
+
+#scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: crosshair;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    touch-action: none;
+}
+
+/* ==========================================================================
+   GATE 5: COSMIC LOVE LETTER
+   ========================================================================== */
+
+.scroll-wrapper {
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
+}
+
+/* Rolled View with Wax Seal */
+.sealed-scroll-view {
+    position: relative;
+    width: 180px;
+    height: 70px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-body-rolled {
+    position: absolute;
+    width: 100%;
+    height: 32px;
+    background: linear-gradient(to bottom, #d4af37, #b8860b, #d4af37);
+    border-radius: 6px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.scroll-body-rolled::before, .scroll-body-rolled::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 42px;
+    background: #8b6508;
+    border-radius: 3px;
+    top: -5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scroll-body-rolled::before { left: -4px; }
+.scroll-body-rolled::after { right: -4px; }
+
+.wax-seal {
+    position: absolute;
+    z-index: 5;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #e81123 0%, #aa0011 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #880000;
+    transition: all 0.3s ease;
+    animation: bounceSeal 2s infinite ease-in-out;
+}
+
+.wax-seal:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(232, 17, 35, 0.6);
+}
+
+.seal-heart {
+    font-size: 0.9rem;
+    color: white;
+}
+
+.seal-glow {
+    font-size: 0.4rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 1px;
+    text-align: center;
+    width: 36px;
+}
+
+/* Breaking Animation */
+.wax-seal.breaking {
+    animation: breakSeal 0.6s forwards cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+/* Unrolled Scroll View */
+.unrolled-scroll-view {
+    width: 100%;
+    background: #fbf5e6; 
+    border-left: 10px solid #b8860b;
+    border-right: 10px solid #b8860b;
+    border-radius: 12px;
+    padding: 20px 16px;
+    color: #4a3319;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+    animation: unfoldScroll 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+.unrolled-scroll-view::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 65%, rgba(139, 101, 8, 0.08) 100%);
+    pointer-events: none;
+}
+
+.scroll-paper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.love-letter-title {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(139, 101, 8, 0.2);
+    padding-bottom: 4px;
+}
+
+.love-letter-paragraph {
+    font-family: var(--font-script);
+    font-size: 1.35rem;
+    line-height: 1.35;
+    text-align: justify;
+    letter-spacing: 0.5px;
+}
+
+.love-letter-signature {
+    margin-top: 6px;
+    font-family: var(--font-script);
+    font-size: 1.35rem;
+    line-height: 1.35;
+    align-self: flex-end;
+    text-align: right;
+    border-top: 1px solid rgba(139, 101, 8, 0.2);
+    padding-top: 6px;
+    width: 60%;
+}
+
+.end-celebration-text {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.4;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    animation: textPulse 3s infinite ease-in-out alternate;
+}
+
+/* ==========================================================================
+   COSMIC BOTTOM NAVIGATION BAR
+   ========================================================================== */
+
+.cosmic-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 460px;
+    background: rgba(8, 10, 32, 0.88);
+    backdrop-filter: blur(20px) saturate(140%);
+    border-top: 1px solid var(--border-glass);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0 10px 0;
+    z-index: 1000;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.6);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.05rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 20%;
+    outline: none;
+}
+
+.nav-item i {
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+}
+
+.nav-item span {
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-top: 1px;
+}
+
+.nav-item:hover:not(.disabled) {
+    color: var(--text-light);
+}
+
+.nav-item.active {
+    color: var(--gold);
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
+    transform: translateY(-2px);
+}
+
+.nav-item.active i {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+}
+
+.nav-item.disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   MICRO-ANIMATIONS AND KEYFRAMES
+   ========================================================================== */
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes textPulse {
+    from { opacity: 0.45; }
+    to { opacity: 1; }
+}
+
+@keyframes bounceWave {
+    from { height: 3px; }
+    to { height: 14px; }
+}
+
+@keyframes starPulse {
+    from { transform: scale(1); opacity: 0.75; }
+    to { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes starFlicker {
+    0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 2px var(--gold)); }
+    50% { opacity: 1; filter: drop-shadow(0 0 8px var(--gold)); }
+}
+
+@keyframes beat-anim {
+    0%, 100% { transform: scale(1); }
+    35% { transform: scale(1.18); }
+}
+
+.beat-animation {
+    animation: beat-anim 1.2s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes bounceSeal {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes breakSeal {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.05) rotate(5deg); opacity: 0.8; }
+    100% { transform: scale(0) rotate(-45deg); opacity: 0; display: none; }
+}
+
+@keyframes unfoldScroll {
+    from { height: 0; opacity: 0; }
+    to { height: auto; opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px 10px 85px 10px;
+    }
+    .cosmic-title {
+        font-size: 1.8rem;
+    }
+    .lock-wrapper-container {
+        padding: 20px 10px;
+    }
+    .astrolabe-clock {
+        width: 190px;
+        height: 190px;
+    }
+    #hour-hand { height: 44px; }
+    #minute-hand { height: 60px; }
+    
+    .glass-card {
+        padding: 16px;
+        max-height: 74vh;
+    }
+    .unrolled-scroll-view {
+        padding: 16px 12px;
+        border-left-width: 6px;
+        border-right-width: 6px;
+    }
+    .love-letter-paragraph, .love-letter-signature {
+        font-size: 1.22rem;
+    }
+}

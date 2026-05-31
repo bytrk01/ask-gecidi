@@ -1,0 +1,37 @@
+{
+  "name": "Nisasu & Hüseyinsu - Sonsuz Aşk Geçidi",
+  "short_name": "Aşk Geçidi",
+  "description": "Nisasu ve Hüseyinsu için sevgiyle ve edebiyat devlerinin ruhuyla tasarlanmış şairane doğum günü hediyesi uygulaması.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#070919",
+  "theme_color": "#070919",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/emoji/48/sparkling-heart.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/96/sparkling-heart.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/144/sparkling-heart.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/192/sparkling-heart.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/emoji/512/sparkling-heart.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

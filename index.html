@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nisasu & Hüseyinsu - Sonsuz Aşk Geçidi</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nisasu ve Hüseyinsu için sevgiyle ve edebiyat devlerinin ruhuyla tasarlanmış şairane doğum günü hediyesi uygulaması.">
+    <meta name="theme-color" content="#070919">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="https://img.icons8.com/emoji/96/sparkling-heart.png" type="image/x-icon">
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style-v2.css">
+</head>
+<body>
+
+    <!-- Ambient Background Starry Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Minimalist Golden Speaker Button -->
+    <button id="music-toggle" class="minimal-audio-btn hidden" aria-label="Sesi Kıs/Aç">
+        <i class="fa-solid fa-volume-high" id="music-toggle-icon"></i>
+    </button>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container">
+
+        <!-- ================= OYUN 1: ZAMANI AŞKLA HİZALA (GİRİŞ KAPISI) ================= -->
+        <section id="gate-lock" class="gate-screen active-gate">
+            <div class="lock-wrapper-container">
+                <h1 class="cosmic-title gold-glow">AŞK GEÇİDİ</h1>
+                <p class="gate-subtitle">Ruhlarımızın aynı gece yarısı sessizce dünyaya gözlerini açtığı, o en özel ve mucizevi anı hizala bir tanem...</p>
+                
+                <!-- Dynamic Poem Placeholder 1 (Giriş Kapısı) -->
+                <div class="gate-poem" id="poem-gate-1"></div>
+                
+                <!-- Beautiful Analog Clock Face with all 12 Roman Numerals -->
+                <div class="astrolabe-clock" id="interactive-clock">
+                    <div class="constellation-bg"></div>
+                    <div class="clock-face">
+                        <div class="hour-target-marker">✦</div>
+                        <div class="clock-numbers">
+                            <span class="num n12">XII</span>
+                            <span class="num n1">I</span>
+                            <span class="num n2">II</span>
+                            <span class="num n3">III</span>
+                            <span class="num n4">IV</span>
+                            <span class="num n5">V</span>
+                            <span class="num n6">VI</span>
+                            <span class="num n7">VII</span>
+                            <span class="num n8">VIII</span>
+                            <span class="num n9">IX</span>
+                            <span class="num n10">X</span>
+                            <span class="num n11">XI</span>
+                        </div>
+                        <div class="hand" id="hour-hand"></div>
+                        <div class="hand" id="minute-hand"></div>
+                        <div class="center-star">❤</div>
+                    </div>
+                </div>
+
+                <div class="clock-status">
+                    <div id="time-display-container" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <div id="time-display">10:30</div>
+                        <div class="ampm-pill" id="ampm-toggle">Ö.S.</div>
+                    </div>
+                    <div id="keypad-status-msg">Zamanı Akışına Bırak</div>
+                </div>
+
+                <!-- Elegant Glowing Adjusting Buttons -->
+                <div class="clock-controls">
+                    <button class="control-btn" id="btn-hour-prev"><i class="fa-solid fa-minus"></i> Saat</button>
+                    <button class="control-btn" id="btn-hour-next"><i class="fa-solid fa-plus"></i> Saat</button>
+                    <button class="control-btn" id="btn-min-prev"><i class="fa-solid fa-minus"></i> Dakika</button>
+                    <button class="control-btn" id="btn-min-next"><i class="fa-solid fa-plus"></i> Dakika</button>
+                </div>
+                
+                <button id="unlock-btn" class="cosmic-btn disabled" disabled>Geçidi Aşkla Aç ✦</button>
+            </div>
+        </section>
+
+        <!-- ================= OYUN 2: EDEBİ RUHLARIN İMTİZACI (UYUM KAPISI) ================= -->
+        <section id="gate-compat" class="gate-screen hidden-gate">
+            <div class="glass-card gate-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-wand-magic-sparkles gold-text"></i>
+                    <h2>Edebi Ruhların İmtizacı</h2>
+                </div>
+
+                <!-- Dynamic Poem Placeholder 1 -->
+                <div class="gate-poem" id="poem-gate-2"></div>
+                
+                <!-- Game Stage -->
+                <div id="compat-game-view" class="game-view-stage">
+                    <p class="card-desc">Kelimelerin o güzel ummanında süzülen, <strong>içtenlikle yazılmış şairane aşk kavramlarını</strong> topla canımın içi. Lakin dikkat et, aramıza gölge düşürmek isteyen <strong>soğuk mesafe ve huzursuzluk</strong> bulutlarına dokunmayasın... ☄️</p>
+                    <div class="canvas-container">
+                        <canvas id="retro-canvas" width="300" height="160"></canvas>
+                    </div>
+                    <div class="retro-progress-container">
+                        <div class="retro-progress-bar" id="retro-bar"></div>
+                        <span class="retro-progress-text" id="retro-text">Derlenen Edebi Uyum: %0</span>
+                    </div>
+                </div>
+
+                <!-- Unlocked Reward Stage -->
+                <div id="compat-reward-view" class="hidden">
+                    <div class="compatibility-title-box">
+                        <i class="fa-solid fa-heart beat-animation text-pink"></i>
+                        <h3>Ruhlarımızın Mukaddes Uyumu</h3>
+                    </div>
+                    
+                    <p class="compatibility-text">
+                        Kalplerimizin aynı gece yarısı dünyaya gözlerini açması sıradan bir tesadüf değil, yazgımızın en güzel mısralarla örüldüğü o ebedi mukadderattır bir tanem. Bu sonsuz sevgi; mektuplardaki o en derin sadakat, içten gelen bir adanmışlık ve ömrümüze dolan o ebedi bahar gibi can buluyor. Bağımız sarsılmaz, aşkımız sonsuzdur. ♊💖
+                    </p>
+
+                    <div class="gate-navigation">
+                        <button class="cosmic-btn nav-to-btn" data-target-gate="gate-stars">Sevgi Yıldızlarını Avla ✦</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= OYUN 3: GÖKYÜZÜ AŞKI (YILDIZLAR KAPISI) ================= -->
+        <section id="gate-stars" class="gate-screen hidden-gate">
+            <div class="glass-card gate-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-star gold-text"></i>
+                    <h2>Gökyüzünün Edebi Parıltıları • Yıldız Avı</h2>
+                </div>
+
+                <!-- Dynamic Poem Placeholder 2 -->
+                <div class="gate-poem" id="poem-gate-3"></div>
+
+                <p class="card-desc">Gök kubbenin ahenkle parıldayan <strong>dört tılsımlı sevgi yıldızına</strong> dokunarak aşkımızın o sıcak parıltılarını topla ve kalbimizdeki o güzel yankılarını keşfet ruh ortağım.</p>
+                
+                <div class="interactive-constellation-map">
+                    <canvas id="stars-canvas" width="320" height="200"></canvas>
+                </div>
+
+                <div class="gate-navigation">
+                    <button id="stars-next-btn" class="cosmic-btn nav-to-btn disabled" data-target-gate="gate-scratch" disabled>Yıldızları Yakala ✦</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPLIMENT POPUP MODAL -->
+        <div id="star-modal" class="modal-overlay">
+            <div class="modal-content glass-card">
+                <button id="modal-close" class="close-btn" aria-label="Kapat">&times;</button>
+                <div class="modal-star-icon">💖</div>
+                <h3 id="modal-title" class="gold-text">Compliment</h3>
+                <p id="modal-body">Detaylar...</p>
+            </div>
+        </div>
+
+        <!-- ================= OYUN 4: GÖNÜL KARTLARI & ALTIN MÜHÜR (SÜRPRİZ KAPISI) ================= -->
+        <section id="gate-scratch" class="gate-screen hidden-gate">
+            <div class="glass-card gate-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-gift gold-text"></i>
+                    <h2>Gönül Kartları & Altın Mühür</h2>
+                </div>
+
+                <!-- Dynamic Poem Placeholder 3 -->
+                <div class="gate-poem" id="poem-gate-4"></div>
+
+                <p class="card-desc">Aşağıdaki güzel sevgi kartlarını eşleştirerek, ikimize ait o gizli ve sınırsız <strong>Dilek Beratı</strong>'nı açığa çıkar bir tanem.</p>
+                
+                <!-- Card Memory Match Stage -->
+                <div id="memory-game-stage" class="memory-grid-container">
+                    <div class="memory-grid">
+                        <!-- Pair 1: Heart -->
+                        <div class="memory-card" data-card-id="1">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-heart"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 2: Star -->
+                        <div class="memory-card" data-card-id="2">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-star"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 3: Sun -->
+                        <div class="memory-card" data-card-id="3">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-sun"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 4: Moon -->
+                        <div class="memory-card" data-card-id="4">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-moon"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 5: Sprout -->
+                        <div class="memory-card" data-card-id="5">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-seedling"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 6: Cloud -->
+                        <div class="memory-card" data-card-id="6">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-cloud"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 7: Key -->
+                        <div class="memory-card" data-card-id="7">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-key"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 8: Feather -->
+                        <div class="memory-card" data-card-id="8">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-feather"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 1: Heart -->
+                        <div class="memory-card" data-card-id="9">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-heart"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 2: Star -->
+                        <div class="memory-card" data-card-id="10">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-star"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 3: Sun -->
+                        <div class="memory-card" data-card-id="11">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-sun"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 4: Moon -->
+                        <div class="memory-card" data-card-id="12">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-moon"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 5: Sprout -->
+                        <div class="memory-card" data-card-id="13">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-seedling"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 6: Cloud -->
+                        <div class="memory-card" data-card-id="14">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-cloud"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 7: Key -->
+                        <div class="memory-card" data-card-id="15">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-key"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                        <!-- Pair 8: Feather -->
+                        <div class="memory-card" data-card-id="16">
+                            <div class="memory-card-inner">
+                                <div class="memory-card-front"><i class="fa-solid fa-feather"></i></div>
+                                <div class="memory-card-back">✦</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Glass Jar Container (Purble Place Style Gönül Kavanozu) -->
+                <div class="jar-wrapper" id="love-jar-wrapper">
+                    <div class="jar-glass">
+                        <div class="jar-lid"></div>
+                        <div class="jar-items" id="jar-items-container"></div>
+                    </div>
+                    <p class="jar-label">Gönül Kavanozu</p>
+                </div>
+
+                <!-- Unlocked Scratch area stage -->
+                <div id="scratch-game-stage" class="hidden">
+                    <p class="card-desc">Gönül kartları vuslata erdi. Şimdi bu altın varaklı güzel berâtı parmağınla hafifçe kazıyarak, kalbimin ebedi hediyesini gün yüzüne çıkar canımın içi...</p>
+                    <div class="scratch-container">
+                        <div class="scratch-reward">
+                            <div class="coupon-border">
+                                <div class="coupon-inside">
+                                    <span class="coupon-sparkle">✦ ✦</span>
+                                    <h3 class="coupon-title">EBEDİ DİLEK VE VUSLAT BERÂTI</h3>
+                                    <p class="coupon-text">Nisasu'ya Özel Sınırsız Sevgi ve Dilek Yetkisi. 🧞‍♂️✨</p>
+                                    <p class="coupon-details">Bu berat ile bir tanem Nisasu, Hüseyinsu'ya karşı dilediği an kullanabileceği, reddedilmesi imkansız 3 adet sihirli ebedi dilek hakkına kavuşmuştur. Aşkımız şahittir ki bu beratın hükmü sarsılmazdır.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <canvas id="scratch-canvas" width="300" height="200"></canvas>
+                    </div>
+                </div>
+
+                <div class="gate-navigation">
+                    <button id="scratch-next-btn" class="cosmic-btn nav-to-btn disabled" data-target-gate="gate-letter" disabled>Sürprizi Aç ✦</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= OYUN 5: KADER ÇARKİ & EBEDİ MEKTUP (MEKTUP KAPISI) ================= -->
+        <section id="gate-letter" class="gate-screen hidden-gate">
+            <div class="glass-card gate-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-envelope-open-text gold-text"></i>
+                    <h2>Kader Çarkı & Ebedi Mektup</h2>
+                </div>
+
+                <!-- Dynamic Poem Placeholder 4 -->
+                <div class="gate-poem" id="poem-gate-5"></div>
+                
+                <!-- Game 5 Stage (Spin Destiny Wheel first!) -->
+                <div id="destiny-wheel-stage" class="game-view-stage">
+                    <p class="card-desc">Hayatımızı güzelleştiren aşkımızın gelecekteki şairane izlerini çizmek ve ebedi aşk mektubunu açmak için <strong>Kader Çarkı</strong>'nı devrettir bir tanem.</p>
+                    
+                    <div class="wheel-outer-wrapper">
+                        <div class="wheel-container">
+                            <div id="destiny-wheel" class="destiny-wheel">
+                                <div class="wheel-sector sec-1"><div class="sector-content">Sonsuzluk</div></div>
+                                <div class="wheel-sector sec-2"><div class="sector-content">Şiirsellik</div></div>
+                                <div class="wheel-sector sec-3"><div class="sector-content">Vuslat</div></div>
+                                <div class="wheel-sector sec-4"><div class="sector-content">Saadet</div></div>
+                            </div>
+                            <div class="wheel-pointer">✦</div>
+                        </div>
+                    </div>
+                    
+                    <button id="spin-wheel-btn" class="cosmic-btn">Çarkı Döndür ✦</button>
+                    
+                    <!-- Prophecy display -->
+                    <div id="prophecy-display" class="prophecy-card hidden">
+                        <h3 id="prophecy-title" class="gold-text">Kader Mukadderatı</h3>
+                        <p id="prophecy-text">...</p>
+                        <button id="btn-read-mektup" class="cosmic-btn" style="margin-top: 12px; background: linear-gradient(135deg, #ffd700, #aa7c11); color: #070919; font-weight: bold; width: auto; font-size: 0.78rem; padding: 10px 18px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);">Ebedi Mektubu Aç ✦</button>
+                    </div>
+                </div>
+
+                <!-- Sealed scroll view (Initially hidden) -->
+                <div id="scroll-letters-view" class="hidden">
+                    <p class="card-desc" id="mektup-desc">Kader çarkı geleceğimizin şairane hatlarını çizdi... Ortadaki o güzel kırmızı balmumu mührü kırarak, ruhlarımızın ebedi aşk mektubunu oku canımın içi...</p>
+                    
+                    <div class="scroll-wrapper" id="parchment-scroll">
+                        <!-- Sealed Scroll -->
+                        <div class="sealed-scroll-view">
+                            <div class="scroll-body-rolled"></div>
+                            <div class="wax-seal" id="seal-trigger">
+                                <span class="seal-heart">❤</span>
+                                <span class="seal-glow">Tıkla ve Mührü Kır</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Unrolled Scroll -->
+                        <div class="unrolled-scroll-view hidden">
+                            <div class="scroll-paper">
+                                <h3 class="love-letter-title">Canımın İçi, Ruhumun En Güzel Dizesi Nisasu'ma,</h3>
+                                <p class="love-letter-paragraph">
+                                    Benim güneşim, hayatımın en güzel baharı, gözümün nuru... Ruhumun en derin ve naif mısrası, hayatımın en parlak mucizesi... İkimizin de aynı gece yarısı dünyaya gözlerini açması ve yollarımızın bu dünyada kesişmesi sıradan bir tesadüf olamaz. Yazgımız, yollarımızı bu gökyüzü altında ebediyetle birleştirmiş, en güzel aşk mısralarını adeta bu vuslat için önümüze sermiştir.
+                                </p>
+                                <p class="love-letter-paragraph">
+                                    Senin o dünyamı aydınlatan asil zekân, kalbimi ısıtan gözlerindeki o masum tebessüm ve hayatıma sükûnet veren zarif varlığın ruhumun en huzurlu limanıdır. Sana olan ebedi bağlılığımla, kalbim senin sevgine mühürlenmiştir. İkimiz el ele yürüdükçe ne bu aşkın güzel kelamları tükenir, ne de birbirimize olan o sarsılmaz ve samimi sadakatimiz eksilir.
+                                </p>
+                                <p class="love-letter-paragraph">
+                                    İyi ki doğdun güneşim, iyi ki benim yol arkadaşım oldun. En sevda dolu mısralar kadar şairane, ömrümüzün en güzel gülleri kadar taze ve sonsuzluğun o tatlı yolunda yan yana yürüyeceğimiz nice şairane yaşlara bir tanem.
+                                </p>
+                                <p class="love-letter-signature">Seni tarif edilemez bir sevgi, aşk ve sadakatle selamlayan can yoldaşın,<br><strong>Hüseyinsu ❤♊</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gate-navigation hidden" id="journey-end-footer" style="flex-direction: column; gap: 12px; align-items: center;">
+                        <p class="end-celebration-text">İyi ki Doğdun Nisasu. • Hüseyinsu tarafından sevgi ve aşkla yapıldı 💖</p>
+                        <button id="btn-reset-journey" class="cosmic-btn reset-btn" style="background: linear-gradient(135deg, #ff2d7a, #8a2be2); color: white; box-shadow: 0 0 15px rgba(255, 45, 122, 0.4);"><i class="fa-solid fa-rotate-left"></i> Geçidi Sıfırla & Yeniden Oyna</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- COSMIC BOTTOM NAVIGATION BAR -->
+    <nav class="cosmic-navbar" id="cosmic-nav">
+        <button class="nav-item active" data-gate="gate-lock" id="nav-btn-lock">
+            <i class="fa-solid fa-lock-open" id="nav-icon-lock"></i>
+            <span>Giriş</span>
+        </button>
+        <button class="nav-item disabled" data-gate="gate-compat" id="nav-btn-compat" disabled>
+            <i class="fa-solid fa-lock" id="nav-icon-compat"></i>
+            <span>Uyum</span>
+        </button>
+        <button class="nav-item disabled" data-gate="gate-stars" id="nav-btn-stars" disabled>
+            <i class="fa-solid fa-lock" id="nav-icon-stars"></i>
+            <span>Yıldızlar</span>
+        </button>
+        <button class="nav-item disabled" data-gate="gate-scratch" id="nav-btn-scratch" disabled>
+            <i class="fa-solid fa-lock" id="nav-icon-scratch"></i>
+            <span>Sürpriz</span>
+        </button>
+        <button class="nav-item disabled" data-gate="gate-letter" id="nav-btn-letter" disabled>
+            <i class="fa-solid fa-lock" id="nav-icon-letter"></i>
+            <span>Mektup</span>
+        </button>
+    </nav>
+
+    <!-- Background Audio Loop -->
+    <audio id="bg-audio" src="music.mp3" loop prefetch></audio>
+
+    <script src="script-v2.js"></script>
+</body>
+</html>
