@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.bytrk01.twa",
+        "sha256_cert_fingerprints": ["19:23:05:6F:84:77:CC:DE:AC:7D:BE:9E:26:20:CD:79:46:A1:CD:47:BC:E7:AC:0B:15:95:48:41:7E:09:DE:9F"]
+      }
+    }]
